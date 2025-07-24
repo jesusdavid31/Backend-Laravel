@@ -1,61 +1,200 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://laravel.com/img/logomark.min.svg" width="100" alt="Laravel Logo"/>
 </p>
 
-## About Laravel
+<h1 align="center">📰 Laravel Articles API</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<p align="center">
+  API RESTful para autenticación de usuarios y gestión de artículos, construida en Laravel 10+ con autenticación personalizada JWT, validaciones robustas y manejo de imágenes.
+</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 📚 Descripción
 
-## Learning Laravel
+**Laravel Articles API** es un backend completo que permite:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Registro e inicio de sesión con autenticación personalizada JWT.
+- Gestión de perfiles de usuario (con avatares).
+- CRUD completo de artículos con paginación.
+- Subida de imágenes para perfiles y artículos.
+- Búsqueda de artículos por término.
+- Protección de rutas mediante middleware de autenticación.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Ideal para usar como base en blogs, redes sociales, o apps educativas.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 📂 Estructura de Carpetas
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```
+├── app/
+│   ├── Helpers/
+│   │   └── JwtAuth.php
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── UserController.php
+│   │       └── ArticleController.php
+├── routes/
+│   └── api.php
+├── storage/app/avatars
+├── storage/app/posters
+```
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🔐 Autenticación JWT Personalizada
 
-## Contributing
+La API implementa un helper `JwtAuth` que utiliza la librería `firebase/php-jwt` para:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Generar un token seguro con información del usuario.
+- Decodificar y validar el token en cada solicitud protegida.
+- El token expira en 7 días (`exp`).
 
-## Code of Conduct
+**Encabezado requerido:**
+```
+Authorization: Bearer {token}
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🧪 Validaciones destacadas
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Password cifrado con `bcrypt`.
+- Validaciones de campos robustas usando `Validator`.
+- Subida de imágenes válida con `mimes: jpeg, png, gif, jpg` y máximo 2MB.
+- Verificación de propiedad antes de modificar artículos.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🛠️ Requisitos
+
+- PHP >= 8.1
+- Composer
+- Laravel >= 10
+- Base de datos MySQL (o compatible)
+- Librería `firebase/php-jwt` instalada
+
+Instalación de la librería:
+```bash
+composer require firebase/php-jwt
+```
+
+---
+
+## ⚙️ Instalación del Proyecto
+
+```bash
+# Clonar el repositorio
+git clone 'URL DEL PROYECTO A CLONAR'
+cd backend-laravel
+
+# Instalar dependencias
+composer install
+
+# Copiar archivo de entorno y generar clave
+cp .env.example .env
+php artisan key:generate
+
+# Configurar conexión a base de datos en .env
+
+# Ejecutar migraciones
+php artisan migrate
+
+# Crear enlace simbólico para acceder a imágenes
+php artisan storage:link
+
+# Iniciar el servidor
+php artisan serve
+```
+
+---
+
+## 🧭 Rutas API
+
+### 🔓 Rutas Públicas
+
+#### 👤 Usuarios
+| Método | Ruta                           | Descripción                        |
+|--------|--------------------------------|------------------------------------|
+| POST   | `/api/user/register`           | Registro de usuario                |
+| POST   | `/api/user/login`              | Login y obtención de token         |
+| GET    | `/api/user/profile/{id}`       | Ver perfil de usuario por ID       |
+| GET    | `/api/user/avatar/{file}`      | Obtener imagen del avatar          |
+
+#### 📝 Artículos
+| Método | Ruta                                      | Descripción                            |
+|--------|-------------------------------------------|----------------------------------------|
+| GET    | `/api/articles/items/{page}`              | Artículos paginados                    |
+| GET    | `/api/articles/item/{id}`                 | Ver artículo por ID                    |
+| GET    | `/api/articles/user/{userId}`             | Ver artículos de un usuario específico |
+| GET    | `/api/articles/search/{searchTerm}`       | Buscar artículos                       |
+| GET    | `/api/articles/poster/{file}`             | Obtener imagen del artículo            |
+
+---
+
+### 🔒 Rutas Protegidas (requieren token)
+
+#### 👤 Usuarios
+| Método | Ruta                   | Descripción                    |
+|--------|------------------------|--------------------------------|
+| PUT    | `/api/user/update`     | Actualizar datos del usuario   |
+| POST   | `/api/user/upload`     | Subir imagen/avatar del usuario|
+
+#### 📝 Artículos
+| Método | Ruta                           | Descripción                      |
+|--------|--------------------------------|----------------------------------|
+| POST   | `/api/articles/save`           | Crear artículo                   |
+| PUT    | `/api/articles/update/{id}`    | Actualizar artículo propio       |
+| DELETE | `/api/articles/delete/{id}`    | Eliminar artículo propio         |
+| POST   | `/api/articles/upload/{id}`    | Subir imagen del artículo        |
+
+---
+
+## 🧠 Ejemplo de autenticación (login)
+
+**Solicitud:**
+```json
+POST /api/user/login
+{
+  "email": "usuario@example.com",
+  "password": "tu_clave_segura"
+}
+```
+
+**Respuesta:**
+```json
+{
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOi..."
+}
+```
+
+---
+
+## 🧼 Ejemplo de autorización en el frontend
+
+Asegúrate de agregar el token en los headers:
+
+```http
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi...
+```
+
+---
+
+## 📸 Gestión de Imágenes
+
+- Las imágenes de usuarios se almacenan en `storage/app/avatars`.
+- Las imágenes de artículos se almacenan en `storage/app/posters`.
+- Acceso público a través de rutas `/api/user/avatar/{file}` y `/api/articles/poster/{file}`.
+
+---
+
+## ✨ Créditos
+
+Este proyecto fue desarrollado con ❤️ usando Laravel y JWT.
+
+---
+
+## 📄 Licencia
+
+MIT © (https://github.com/jesusdavid31)
