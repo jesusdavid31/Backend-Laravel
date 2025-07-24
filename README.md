@@ -5,7 +5,7 @@
 <h1 align="center">📰 Laravel Articles API</h1>
 
 <p align="center">
-  API RESTful para autenticación de usuarios y gestión de artículos, construida en Laravel 10+ con autenticación personalizada JWT, validaciones robustas y manejo de imágenes.
+  API RESTful para autenticación de usuarios y gestión de artículos, construida en Laravel 12 con autenticación personalizada JWT, validaciones robustas y manejo de imágenes.
 </p>
 
 ---
@@ -69,11 +69,11 @@ Authorization: Bearer {token}
 
 ## 🛠️ Requisitos
 
-- PHP >= 8.1
+- PHP >= 8.2
 - Composer
-- Laravel >= 10
+- Laravel >= 12
 - Base de datos MySQL (o compatible)
-- Librería `firebase/php-jwt` instalada
+- Librería `firebase/php-jwt` (ya incluida en `composer.json`)
 
 Instalación de la librería:
 ```bash
