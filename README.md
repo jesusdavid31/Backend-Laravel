@@ -86,7 +86,7 @@ composer require firebase/php-jwt
 
 ```bash
 # Clonar el repositorio
-git clone 'URL DEL PROYECTO A CLONAR'
+git clone https://github.com/jesusdavid31/Backend-Laravel.git
 cd backend-laravel
 
 # Instalar dependencias
